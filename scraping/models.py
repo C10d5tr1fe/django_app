@@ -15,7 +15,7 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def save(self, *args, **kwargs):
         """
         Переопределяем def save
@@ -23,7 +23,7 @@ class City(models.Model):
         """
         if not self.slug:
             self.slug = transletition(str(self.name))
-        super().save(*args, **kwargs)    
+        super().save(*args, **kwargs)
 
 
 class Language(models.Model):
@@ -38,7 +38,7 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def save(self, *args, **kwargs):
         """
         Переопределяем def save
@@ -47,3 +47,20 @@ class Language(models.Model):
         if not self.slug:
             self.slug = transletition(str(self.name))
         super().save(*args, **kwargs)
+
+
+class Vacancy(models.Model):
+    url = models.URLField(unique=True)
+    title = models.CharField(max_length=250, verbose_name='Vacancy')
+    company = models.CharField(max_length=250, verbose_name='Company')
+    description = models.TextField(verbose_name='About')
+    city = models.ForeignKey('City', on_delete=models.CASCADE, verbose_name='Name of City')
+    language = models.ForeignKey('Language', on_delete=models.CASCADE, verbose_name='Programming Language')
+    timestamp = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Vacancy'
+        verbose_name_plural = 'Vacancies'
+
+    def __str__(self):
+        return self.title
