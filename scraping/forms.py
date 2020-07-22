@@ -3,5 +3,14 @@ from scraping.models import City, Language
 
 
 class FindForm(forms.Form):
-    city = forms.ModelChoiceField(queryset=City.objects.all())
-    language = forms.ModelChoiceField(queryset=Language.objects.all())
+    city = forms.ModelChoiceField(
+        queryset=City.objects.all(), to_field_name="slug", required=False,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label='City'
+
+    )
+    language = forms.ModelChoiceField(
+        queryset=Language.objects.all(), to_field_name="slug", required=False,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label='Programing Language'
+    )
