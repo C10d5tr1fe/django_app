@@ -64,6 +64,3 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
-
-    def short_description(self):
-        return self.description[:300]+'...'

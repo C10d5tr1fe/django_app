@@ -8,7 +8,7 @@
           <h5 class="card-header"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
           <div class="card-body">
 
-            <p class="card-text">{{ obj.short_description }}</p>
+            <p class="card-text">{{ obj.description }}</p>
               <p>{{ obj.city.name }} | {{ obj.language.name }} |
                   <small>{{ obj.timestamp }}</small>
               </p>
@@ -17,6 +17,11 @@
         </div>
 
     {% endfor %}
+
+<form method="GET" action="">
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+</form>
 
 {% endblock %}
 
