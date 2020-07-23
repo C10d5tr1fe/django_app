@@ -1,9 +1,15 @@
-from django.db import models
+"""
+Something docstring
+"""
 
+from django.db import models
 from scraping.utils import transletition
 
 
 class City(models.Model):
+    """
+    Something docstring
+    """
     name = models.CharField(max_length=100,
                             verbose_name='Name of City',
                             unique=True)
@@ -16,17 +22,23 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
         """
-        Переопределяем def save
-        Преобразуем с помощью def transletition название города в слаг
+        Переопределяем save
+        В документации django при переопредлении метода в него передается *args, **kwargs
+        Преобразуем с помощью transletition название города в слаг
         """
         if not self.slug:
             self.slug = transletition(str(self.name))
-        super().save(*args, **kwargs)
+        super().save(force_insert=False, force_update=False, using=None,
+                     update_fields=None)
 
 
 class Language(models.Model):
+    """
+    Something docstring
+    """
     name = models.CharField(max_length=100,
                             verbose_name='Programming Language',
                             unique=True)
@@ -39,23 +51,31 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-    def save(self, *args, **kwargs):
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
         """
-        Переопределяем def save
-        Преобразуем с помощью def transletition название города в слаг
+        Переопределяем save
+        В документации django при переопредлении метода в него передается *args, **kwargs
+        Преобразуем с помощью transletition название города в слаг
         """
         if not self.slug:
             self.slug = transletition(str(self.name))
-        super().save(*args, **kwargs)
+        super().save(force_insert=False, force_update=False, using=None,
+                     update_fields=None)
 
 
 class Vacancy(models.Model):
+    """
+    Something docstring
+    """
     url = models.URLField(unique=True)
     title = models.CharField(max_length=250, verbose_name='Vacancy')
     company = models.CharField(max_length=250, verbose_name='Company')
     description = models.TextField(verbose_name='About')
-    city = models.ForeignKey('City', on_delete=models.CASCADE, verbose_name='Name of City')
-    language = models.ForeignKey('Language', on_delete=models.CASCADE, verbose_name='Programming Language')
+    city = models.ForeignKey(
+        'City', on_delete=models.CASCADE, verbose_name='Name of City')
+    language = models.ForeignKey(
+        'Language', on_delete=models.CASCADE, verbose_name='Programming Language')
     timestamp = models.DateField(auto_now_add=True)
 
     class Meta:
@@ -64,3 +84,9 @@ class Vacancy(models.Model):
 
     def __str__(self):
         return self.title
+
+    def short(self):
+        """
+        Метод возвращает короткое description
+        """
+        return self.description[:100]

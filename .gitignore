@@ -225,6 +225,9 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
+#vscode
+.vscode
+
 # Sonarlint plugin
 .idea/**/sonarlint/
 
