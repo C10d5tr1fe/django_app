@@ -1,5 +1,5 @@
 """
-Something docstring
+Models: Cuty, Language, Vacancy
 """
 
 from django.db import models
@@ -8,7 +8,7 @@ from scraping.utils import transletition
 
 class City(models.Model):
     """
-    Something docstring
+    Model City, fields: name, slug
     """
     name = models.CharField(max_length=100,
                             verbose_name='Name of City',
@@ -37,7 +37,7 @@ class City(models.Model):
 
 class Language(models.Model):
     """
-    Something docstring
+    Model Language, fields: name, slug
     """
     name = models.CharField(max_length=100,
                             verbose_name='Programming Language',
@@ -66,7 +66,8 @@ class Language(models.Model):
 
 class Vacancy(models.Model):
     """
-    Something docstring
+    Model Language, fields: url, title, company, description, timestamp
+    "one-to-many" fields: city, language
     """
     url = models.URLField(unique=True)
     title = models.CharField(max_length=250, verbose_name='Vacancy')

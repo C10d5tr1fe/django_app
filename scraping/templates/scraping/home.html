@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 mx-auto">
         <form method="GET" action="">
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Find</button>
@@ -16,7 +16,7 @@
         <div class="card my-5">
           <h5 class="card-header"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
           <div class="card-body">
-
+            <h4>{{ obj.company }}</h4>
             <p class="card-text">{{ obj.description }}</p>
               <p>{{ obj.city.name }} | {{ obj.language.name }} |
                   <small>{{ obj.timestamp }}</small>
@@ -25,10 +25,13 @@
           </div>
         </div>
 
+    {% empty %}
+    <h3>Nothing find</h3>
     {% endfor %}
 
 
 
 
 {% endblock %}
+
 
