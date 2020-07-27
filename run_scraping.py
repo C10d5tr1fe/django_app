@@ -1,32 +1,44 @@
 import codecs
 import os
 import sys
-import django
-from django.conf import settings
-from scraping.models import Vacancy, City, Language
-from scraping.parsers import headhunter
 
 
-project = os.path.dirname(os.path.abspath('manage.py'))
+project = os.path.dirname(os.path.abspath('django_app/manage.py'))
 sys.path.append(project)
-# if not settings.configured:
-#    settings.configure(**locals())
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_app.settings")
 os.environ['DJANGO_SETTINGS_MODULE'] = 'django_app.settings'
+
+import django
+from django.db import DatabaseError
+
 django.setup()
 
+from scraping.models import Vacancy, City, Language
+from scraping.parsers import headhunter
 
 parsers = (
     (headhunter, 'https://hh.ru/search/vacancy?area=1&st=searchVacancy&fromSearch=true&text=Python&from=suggest_post'),
 )
 
-city = City.objects.filter(slug='moskva')
+
+
+city = City.objects.filter(slug='moskva').first()
+language = Language.objects.filter(slug='python').first()
+
 works, errors = [], []
 for func, url in parsers:
     w, e = func(url)
     works += w
     errors += e
 
-h = codecs.open('headhunter.txt', 'w', 'utf-8')
-h.write(str(works))
-h.close()
+for work in works:
+    v = Vacancy(**work, city=city, language=language)
+    try:
+        v.save()
+    except DatabaseError:
+        pass
+
+
+
+# h = codecs.open('headhunter.txt', 'w', 'utf-8')
+# h.write(str(works))
+# h.close()

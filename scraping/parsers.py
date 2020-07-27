@@ -40,15 +40,15 @@ def headhunter(url):
                     'div', attrs={'data-qa': 'vacancy-serp__vacancy_snippet_requirement'})
                 employer = div.find(
                     'a', attrs={'data-qa': 'vacancy-serp__vacancy-employer'})
-                city = div.find(
-                    'span', attrs={'data-qa': 'vacancy-serp__vacancy-address'})
+                # city = div.find(
+                #     'span', attrs={'data-qa': 'vacancy-serp__vacancy-address'})
                 works.append({
                     'title': title.text,
                     'url': href,
-                    'content': details.text,
-                    'requirements': requirements.text,
-                    'employer': employer.text,
-                    'city': city.text
+                    'description': details.text + requirements.text,
+                    #'requirements': requirements.text,
+                    'company': employer.text,
+                    # 'city': city.text
                 })
         else:
             errors.append({
