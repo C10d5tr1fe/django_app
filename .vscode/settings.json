@@ -1,6 +1,6 @@
 {
     "files.autoSave": "onFocusChange",
-    "python.pythonPath": "c:\\GitProjects\\django_service\\venv\\Scripts\\python.exe",
+    "python.pythonPath": "/home/cloud/GitProjects/django_app/venv/bin/python",
     "python.linting.pylintEnabled": true,
     "python.formatting.autopep8Path": "autopep8",
     "python.linting.pylintArgs": [

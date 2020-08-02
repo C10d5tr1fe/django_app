@@ -3,6 +3,7 @@ Models: Cuty, Language, Vacancy
 """
 
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 from scraping.utils import transletition
 
 
@@ -91,3 +92,9 @@ class Vacancy(models.Model):
         Метод возвращает короткое description
         """
         return self.description[:100]
+
+
+class Error(models.Model):
+    """Model Error"""
+    timestamp = models.DateField(auto_now_add=True)
+    data = JSONField()

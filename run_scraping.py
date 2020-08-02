@@ -12,7 +12,7 @@ from django.db import DatabaseError
 
 django.setup()
 
-from scraping.models import Vacancy, City, Language
+from scraping.models import Vacancy, City, Language, Error
 from scraping.parsers import headhunter
 
 parsers = (
@@ -36,8 +36,8 @@ for work in works:
         v.save()
     except DatabaseError:
         pass
-
-
+if errors:
+    er = Error(data=errors).save()
 
 # h = codecs.open('headhunter.txt', 'w', 'utf-8')
 # h.write(str(works))
