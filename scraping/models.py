@@ -6,6 +6,9 @@ from django.db import models
 from django.contrib.postgres.fields import JSONField
 from scraping.utils import transletition
 
+def default_urls():
+    """Return dict with default urls"""
+    return {"headhunter":""}
 
 class City(models.Model):
     """
@@ -98,3 +101,15 @@ class Error(models.Model):
     """Model Error"""
     timestamp = models.DateField(auto_now_add=True)
     data = JSONField()
+
+
+class Url(models.Model):
+    """Model url"""
+    city = models.ForeignKey(
+        'City', on_delete=models.CASCADE, verbose_name='Name of City')
+    language = models.ForeignKey(
+        'Language', on_delete=models.CASCADE, verbose_name='Programming Language')
+    url_data = JSONField(default=default_urls)
+
+    class Meta:
+        unique_together = ('city', 'language')
